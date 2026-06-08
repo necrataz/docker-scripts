@@ -40,7 +40,6 @@ declare -a SERVICES=(
     "11:Memos:memos:8097:备忘录"
     "12:StirlingPDF:stirlingpdf:8098:PDF工具箱"
     "13:n8n:n8n:8101:工作流自动化"
-    "14:小雅影视:xiaoya:8100:影视聚合"
     "15:Dockge:dockge:5001:Docker管理"
     "16:Miniflux:miniflux:8110:RSS阅读器"
 )
@@ -52,7 +51,7 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; }
 hr()    { echo -e "${CYAN}═══════════════════════════════════════════${NC}"; }
 
 get_nas_ip() {
-    NAS_IP=$(hostname -I | awk '{print $1}')
+    NAS_IP=$(ip route get 1 | awk '{print $NF;exit}' 2>/dev/null || hostname -I | awk '{print $1}')
 }
 
 get_service_name() {
@@ -416,23 +415,6 @@ services:
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - N8N_HOST=${NAS_IP}:${port}
-    restart: unless-stopped
-YAMLEOF
-            ;;
-        "小雅影视")
-            cat > "$yml_path" <<'YAMLEOF'
-services:
-  xiaoya:
-    image: xiaoqicoder/xiaoya:latest
-    container_name: xiaoya
-    ports:
-      - 8100:80
-      - 8101:8080
-    volumes:
-      - ./data:/data
-      - ./config:/config
-    environment:
-      - TZ=Asia/Shanghai
     restart: unless-stopped
 YAMLEOF
             ;;
