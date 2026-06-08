@@ -52,7 +52,7 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; }
 hr()    { echo -e "${CYAN}═══════════════════════════════════════════${NC}"; }
 
 get_nas_ip() {
-    NAS_IP=$(ip route get 1 | awk '{print $NF;exit}' 2>/dev/null || hostname -I | awk '{print $1}')
+    NAS_IP=$(hostname -I | awk '{print $1}')
 }
 
 get_service_name() {
@@ -208,7 +208,6 @@ generate_compose() {
     case "$name" in
         "Clash")
             cat > "$yml_path" <<'YAMLEOF'
-version: '3'
 services:
   clash:
     image: ghcr.io/dreamacro/clash
@@ -222,7 +221,6 @@ YAMLEOF
             ;;
         "Homepage")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
@@ -239,7 +237,6 @@ YAMLEOF
             ;;
         "MoviePilot")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   moviepilot:
     image: jxxghp/moviepilot-v2:latest
@@ -258,7 +255,6 @@ YAMLEOF
             ;;
         "qBittorrent")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -280,7 +276,6 @@ YAMLEOF
             ;;
         "Emby")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   emby:
     image: emby/embyserver:latest
@@ -298,7 +293,6 @@ YAMLEOF
             ;;
         "Transmission")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   transmission:
     image: lscr.io/linuxserver/transmission:latest
@@ -320,7 +314,6 @@ YAMLEOF
             ;;
         "Draw.io")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   drawio:
     image: jgraph/drawio:latest
@@ -334,7 +327,6 @@ YAMLEOF
             ;;
         "Reader")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   reader:
     image: hectorqin/reader:latest
@@ -353,7 +345,6 @@ YAMLEOF
             ;;
         "ZFile")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   zfile:
     image: zfile/zfile:latest
@@ -368,7 +359,6 @@ YAMLEOF
             ;;
         "Halo")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   halo:
     image: halohub/halo:latest
@@ -384,7 +374,6 @@ YAMLEOF
             ;;
         "Memos")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   memos:
     image: neosmemo/memos:stable
@@ -398,7 +387,6 @@ YAMLEOF
             ;;
         "StirlingPDF")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   stirlingpdf:
     image: frooodle/s-pdf:latest
@@ -415,7 +403,6 @@ YAMLEOF
             ;;
         "n8n")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   n8n:
     image: n8nio/n8n:latest
@@ -434,7 +421,6 @@ YAMLEOF
             ;;
         "小雅影视")
             cat > "$yml_path" <<'YAMLEOF'
-version: '3'
 services:
   xiaoya:
     image: xiaoqicoder/xiaoya:latest
@@ -452,7 +438,6 @@ YAMLEOF
             ;;
         "Dockge")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   dockge:
     image: louislam/dockge:latest
@@ -470,7 +455,6 @@ YAMLEOF
             ;;
         "Miniflux")
             cat > "$yml_path" <<YAMLEOF
-version: '3'
 services:
   miniflux:
     image: miniflux/miniflux:latest
