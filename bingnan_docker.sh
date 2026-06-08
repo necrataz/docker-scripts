@@ -3,7 +3,7 @@
 # Bingnan Docker 一键安装管理脚本
 # 版本: v2.0
 # 适用: 飞牛OS / Linux + Docker
-# 包含 16 个服务（含 Dockge & Miniflux 替代方案）
+# 包含 14 个服务（含 Dockge 替代方案）
 #===============================================
 
 set -e
@@ -41,7 +41,6 @@ declare -a SERVICES=(
     "12:StirlingPDF:stirlingpdf:8098:PDF工具箱"
     "13:n8n:n8n:8101:工作流自动化"
     "15:Dockge:dockge:5001:Docker管理"
-    "16:Miniflux:miniflux:8110:RSS阅读器"
 )
 
 # ========== 工具函数 ==========
@@ -432,38 +431,6 @@ services:
       - ${WORK_DIR}:/data/stacks
     environment:
       - DOCKGE_STACKS_DIR=/data/stacks
-    restart: unless-stopped
-YAMLEOF
-            ;;
-        "Miniflux")
-            cat > "$yml_path" <<YAMLEOF
-services:
-  miniflux:
-    image: miniflux/miniflux:latest
-    container_name: miniflux
-    ports:
-      - ${port}:8080
-    volumes:
-      - ./data:/var/lib/miniflux
-    environment:
-      - DATABASE_URL=postgres://miniflux:miniflux@miniflux-db/miniflux?sslmode=disable
-      - RUN_MIGRATIONS=1
-      - CREATE_ADMIN=1
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=admin123
-    depends_on:
-      - miniflux-db
-    restart: unless-stopped
-
-  miniflux-db:
-    image: postgres:15-alpine
-    container_name: miniflux-db
-    volumes:
-      - ./db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=miniflux
-      - POSTGRES_PASSWORD=miniflux
-      - POSTGRES_DB=miniflux
     restart: unless-stopped
 YAMLEOF
             ;;
